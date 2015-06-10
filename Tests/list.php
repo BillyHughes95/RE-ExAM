@@ -7,7 +7,7 @@
 
 ?>
 
-    <a href="pdf_test.php"><?php echo $row['pdf_name'];?></a>
+    <a href="pdf_test.php"><?php echo $row['pdf_name '];?></a>
     <br>
 
 <?php
