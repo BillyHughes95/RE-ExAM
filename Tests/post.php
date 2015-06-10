@@ -1,18 +1,13 @@
 
 
 <div id="createComment">
-<form method="" action"">
+<form method="post">
 	<?php
 	if(isset($_POST['message']) && !empty($_POST['message'])){
 	$message = nl2br($_POST['message']);
-<<<<<<< HEAD
-	mysql_query("INSERT INTO post VALUES('', '$message', now(), now())");
-	header('Refresh: 1; url=#');
-=======
+
 	mysql_query("INSERT INTO post VALUES('', ('".mysql_real_escape_string($message)."'), now(), now())");
-	header('Refresh: 1; url=http://intweb.bucks.ac.uk/~21330276/RE-ExAM/Tests/index.php');
->>>>>>> origin/master
-    
+	header('Refresh: 1; url=#');    
 	}
 	?>
 	<textarea name='message' placeholder="Leave a comment" id="CommentTextbox"></textarea>
