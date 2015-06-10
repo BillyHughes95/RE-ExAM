@@ -5,7 +5,7 @@
 	if(isset($_POST['message']) && !empty($_POST['message'])){
 	$message = nl2br($_POST['message']);
 	mysql_query("INSERT INTO post VALUES('', '$message', now(), now())");
-	header('Refresh: 1; url=http://intweb.bucks.ac.uk/~21330276/RE-ExAM/Tests/index.php');
+	header('Refresh: 1; url=#');
     
 	}
 	?>
