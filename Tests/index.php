@@ -1,36 +1,30 @@
 <html>
 <head>
 	<title>Comment System</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-	<?php include 'connect.php'; ?>
+<body>  
+	<?php include 'connect.php'; ?> <!--Initialises database connection-->
 
-    <embed src="PDFs/HTML 4 Dummies.pdf"/>
-    
-    
-    <div class="enterComment"><?php include 'post.php'; ?></div>
-    
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="index.js"></script>
-	</br></br>
-	<?php 
-		$post_query = mysql_query("SELECT id, post, date, time FROM post");
-		while($run_post = mysql_fetch_array($post_query)){
-		$post_id = $run_post['id'];
-		$post = $run_post['post'];
-		$post_date = $run_post['date'];
-		$post_time = $run_post['time'];
-		
-	?>
 
-    
-	<div class="commentbox">
-	<b>Cat </b>  
-	<div class="dateTime">Posted on: <?php echo $post_date; ?> <b>|</b> <?php echo $post_time; ?></div><hr>  
-	<div class="commentText"><p><?php echo $post; ?></p></div>
-	<div class="replies">
-	<?php
+        <?php //Everything inside of this PHP tag retrieves all of the post data from database
+            $post_query = mysql_query("SELECT id, post, date, time FROM post");
+            while($run_post = mysql_fetch_array($post_query)){
+            $post_id = $run_post['id'];
+            $post = $run_post['post'];
+            $post_date = $run_post['date'];
+            $post_time = $run_post['time'];	
+        ?>
+
+     <?php include 'post.php'; ?>    <!--Adds the post form so that people can leave comments-->
+	
+	<b>Poster's name here</b>  
+	Posted on: <?php echo $post_date; ?> <b>|</b> <?php echo $post_time; ?><hr>  
+	<p><?php echo $post; ?></p> <!--Displays the actual comment, date & time it was posted-->
+	
+	<?php //Everything inside of this PHP tag retrieves all of the reply data from the database
 		$reply_query = mysql_query("SELECT id, reply, reply_date, reply_time FROM reply WHERE post_id = '$post_id'");
 			while($run_reply = mysql_fetch_array($reply_query)){
 				$reply_id = $run_reply['id'];
@@ -38,21 +32,23 @@
 				$reply_date = $run_reply['reply_date'];
 				$reply_time = $run_reply['reply_time'];
 	?>
-			<div class="view_reply">
-			<b>Dog</b> <div class="dateTimeReply"><?php echo $reply_date . " | " . $reply_time ?></div> <div class="commentText"><?php                echo $reply; ?></div>
-			</div>
+			
+			<b>Replier's name here</b><?php echo $reply_date . " | " . $reply_time ?><?php echo $reply; ?>
+			<!--Displays the replies, their time and their dates-->
 	<?php
-	}
+	   } //Closes the WHILE loop that iterates through the replies
 	?>
-	
-	</div>
 	
 	<input type="text" name="submit" placeholder="Leave a reply" class="reply" post_id=<?php echo $post_id;?>/>
-	</div>
+	<!--This is the text area used to write your reply-->
+    
 	<?php
-	}
-
+	   } //Closes the WHILE loop that iterates through the comments
 	?>
 	
+
+    <div id="pdf_wrapper"><embed src="PDFs/HTML 4 Dummies.pdf"/></div>
+    <!--This is the PDF display-->
+
 </body>
 </html>
