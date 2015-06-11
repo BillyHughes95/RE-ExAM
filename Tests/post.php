@@ -6,8 +6,9 @@
 	if(isset($_POST['message']) && !empty($_POST['message'])){
 	$message = nl2br($_POST['message']);
 
-	mysql_query("INSERT INTO post VALUES('', ('".mysql_real_escape_string($message)."'), now(), now())");
-	header('Refresh: 1; url=#');    
+    $pdf_location = htmlspecialchars($_GET["essay"]);    
+	mysql_query("INSERT INTO post VALUES('', ('".mysql_real_escape_string($message)."'), now(), now(), '$pdf_location')");
+	//header('Refresh: 1; url=#');    
 	}
 	?>
 	<textarea name='message' placeholder="Leave a comment" id="CommentTextbox"></textarea>
